@@ -1,0 +1,65 @@
+</html>
+<!DOCTYPE html>
+<html>
+<head th:replace="~{base :: head}" />
+<body onload="onLoad()">
+    <div th:replace="~{base :: titulo('Fazer nova oferta')}" }></div>
+    <div id="ofertas" class="container-fluid">
+		<div class="card-row">
+	        <div class="card mb-3" v-for="pedido in pedidos">
+                <div class="card-header alert-dark">
+                	{{ pedido.nomeProduto }}
+                </div>
+	            <div class="card-body row">
+	                <div class="col-12 col-md-8 mb-3">
+	                    <div>Produto</div>
+	                    <div>
+	                        <a v-bind:href="pedido.urlProduto">{{ pedido.nomeProduto }}</a>
+	                    </div>
+	                    <div class="mt-2">
+	                    	<label for="descricao">Descrição</label>
+		                    <textarea id="descricao" class="form-control" disabled="disabled" 
+                            cols="15" rows="3">{{ pedido.descricao }}</textarea>
+	                    </div>
+	                    <div class="row mt-3 mb-3">
+	                        <div class="col-md-5">
+	                        	Valor: <input class="form-control" id="valor" v-bind:readonly="pedido.ofertaEnviada" 
+	                        	v-bind:class="{'is-invalid':pedido.errors.valor !== ''}" 
+                                v-model="pedido.valorNegociado"/>
+	                        	<div v-if="pedido.errors.valor"class="invalid-feedback">
+	                        		{{pedido.errors.valor}}
+                        		</div>
+	                        </div>
+	                        <div class="col-md-7">
+	                        	Data da entrega: <input v-bind:readonly="pedido.ofertaEnviada" class="form-control" 
+                                id="dataEntrega"
+	                        	v-bind:class="{'is-invalid':pedido.errors.dataEntrega !== ''}" 
+                                v-model="pedido.dataEntrega" 
+                                placeholder="dd/mm/aaaa"/>
+	                        	<div v-if="pedido.errors.dataEntrega"class="invalid-feedback">
+	                        		{{pedido.errors.dataEntrega}}
+	                        	</div>
+                        	</div>
+	                    </div>
+	                    <div>
+	                    	<label for="comentario">Deixe uma mensagem para o vendedor sobre a sua oferta:</label>
+		                    <textarea v-bind:readonly="pedido.ofertaEnviada" id="comentario" class="form-control" v-model="pedido.comentario" cols="15" rows="3">{{ pedido.descricao }}</textarea>
+	                    </div>
+	                    <div class="mt-4">
+		                    <button v-if="!pedido.ofertaEnviada" v-on:click="enviarOferta(pedido)" class="btn btn-primary btn-lg" type="submit">Fazer Oferta</button>
+		                    <button v-else disabled class="btn btn-success btn-lg du">Oferta Enviada</button>
+	                    </div>
+	                </div>
+	                <div class="col-12 col-md-4">
+	                    <img class="img-thumbnail"  v-bind:src="pedido.urlImagem"/>
+	                </div>
+	            </div>
+	        </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

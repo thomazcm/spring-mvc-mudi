@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 
 import br.com.alura.mvc.mudi.model.Pedido;
 import br.com.alura.mvc.mudi.model.StatusPedido;
+import br.com.alura.mvc.mudi.model.User;
 public class RequisicaoNovoPedido {
 
     @NotBlank
@@ -46,13 +47,14 @@ public class RequisicaoNovoPedido {
         this.descricaoProduto = descricaoProduto;
     }
 
-    public Pedido toPedido() {
+    public Pedido toPedido(User user) {
         var pedido = new Pedido();
         pedido.setNomeProduto(nomeProduto);
         pedido.setUrlProduto(urlProduto);
         pedido.setUrlImagem(urlImagem);
         pedido.setDescricao(descricaoProduto);
         pedido.setStatus(StatusPedido.AGUARDANDO);
+        pedido.setUser(user);
         return pedido;
     }
 }

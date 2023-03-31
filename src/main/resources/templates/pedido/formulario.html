@@ -2,31 +2,36 @@
 <html>
 <head th:replace="~{base :: head}"/>
 <body>
-    <div class="container">
-        <div th:replace="~{base :: titulo('Novo Pedido')}"}></div>
-        <div class=" mt-3">
-            <a href="/home"><button class="btn btn-outline-secondary my-2 my-sm-0 ">Home</button></a>
-        </div>
-        
-        <div class="card mt-3">
-	        <form th:object="${requisicaoNovoPedido}" class="card-body" action="/pedido/novo" method="POST">
+    <div th:replace="~{base :: titulo('Novo Pedido')}"}></div>
+    <div class="container ml-5">
+        <div class="card mt-3 cardForm">
+	        <form th:object="${requisicaoNovoPedido}" class="card-body" th:action="@{/pedido/novo}" method="POST">
 	        
 	            <div class="form-group">
 	                <label for="nomeProduto">Produto</label>
-	                <input th:field="*{nomeProduto}" class="form-control" placeholder="nome do produto" /> 
-	                <small>Informe o nome do produto</small>
+	                <input th:field="*{nomeProduto}" class="form-control" th:errorclass="is-invalid" placeholder="nome do produto" /> 
+	                <small >Informe o nome do produto</small>
+	                <div th:errors="*{nomeProduto}" class="invalid-feedback">
+	                	Erros do nome do produto
+	                </div>
 	            </div>
 	            
 	            <div class="form-group">
 	                <label for="urlProduto">Link do Produto</label>
-	                <input th:field="*{urlProduto}" class="form-control" placeholder="link do produto" />
+	                <input th:field="*{urlProduto}"  class="form-control" th:errorclass="is-invalid" placeholder="link do produto" />
 	                <small>Informe um link para o produto em um site</small>
+	                <div th:errors="*{urlProduto}" class="invalid-feedback">
+	                	Erros da url produto
+	                </div>
 	            </div>
 	            
 	            <div class="form-group">
 	                <label for="urlImagem">Imagem do Produto</label>
-	                <input th:field="*{urlImagem}" class="form-control" placeholder="link da imagem" />
+	                <input th:field="*{urlImagem}" class="form-control" th:errorclass="is-invalid" placeholder="link da imagem" />
 	                <small>Informe um link para a imagem do produto para ajudar a conseguir compradores</small>
+	                <div th:errors="*{urlImagem}" class="invalid-feedback">
+	                	Erros da url imagem
+	                </div>
 	            </div>
 	            
 	            <div class="form-group">
@@ -34,9 +39,7 @@
 	                <textarea th:field="*{descricaoProduto}"  class="form-control"
 	                placeholder="detalhes importantes para o comprador"></textarea>
 	            </div>
-	            
 	            <button class="btn btn-primary" type="submit">Cadastrar</button>
-	            
 	        </form>
         </div>
     </div>
